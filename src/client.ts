@@ -422,4 +422,19 @@ export class MelonlyClient {
     validateId(robloxId, "robloxId");
     return this.http.get(`/verification/roblox/${encodeURIComponent(robloxId)}/discord`);
   }
+
+  /**
+   * Initiate a workflow via a webhook trigger
+   * @param url - The webhook URL found on your workflow's settings page
+   * @param body - The trigger outputs to initiate your workflow. See your workflow's settings page for a schema
+   */
+  async sendWorkflowWebhook(url: string, body: Record<string, string | number | boolean>): Promise<void> {
+    await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
 }
